@@ -7,6 +7,8 @@ require('dotenv').config();
 
 const { sequelize, testConnection } = require('./config/database');
 const { checkOverdueRecords } = require('./services/borrowService');
+const { User, Category } = require('./models');
+const bcrypt = require('bcryptjs');
 const cron = require('node-cron');
 
 // 导入路由
@@ -80,6 +82,9 @@ const startServer = async () => {
     await sequelize.sync({ alter: process.env.NODE_ENV === 'development' });
     console.log('Database synchronized');
 
+    // 初始化默认数据
+    await initializeDefaultData();
+
     // 启动服务器
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
@@ -100,5 +105,49 @@ const startServer = async () => {
 };
 
 startServer();
+
+// 初始化默认数据
+const initializeDefaultData = async () => {
+  try {
+    // 创建默认分类
+    const categories = [
+      { name: '文学', description: '小说、散文、诗歌等文学作品' },
+      { name: '科技', description: '计算机、互联网、人工智能等科技类图书' },
+      { name: '历史', description: '历史、传记、考古等历史类图书' },
+      { name: '经济', description: '经济、金融、管理等经济类图书' },
+      { name: '教育', description: '教育、教材、考试等教育类图书' },
+      { name: '艺术', description: '绘画、音乐、设计等艺术类图书' },
+      { name: '医学', description: '医学、健康、养生等医学类图书' },
+      { name: '法律', description: '法律、法规、案例等法律类图书' }
+    ];
+
+    for (const cat of categories) {
+      await Category.findOrCreate({
+        where: { name: cat.name },
+        defaults: cat
+      });
+    }
+    console.log('Default categories created');
+
+    // 创建默认管理员账号
+    const adminExists = await User.findOne({ where: { username: 'admin' } });
+    if (!adminExists) {
+      const hashedPassword = await bcrypt.hash('admin123', 10);
+      await User.create({
+        username: 'admin',
+        email: 'admin@bookflow.com',
+        password: hashedPassword,
+        fullName: '系统管理员',
+        role: 'admin',
+        status: 'active',
+        maxBooks: 10,
+        borrowCount: 0
+      });
+      console.log('Default admin user created (username: admin, password: admin123)');
+    }
+  } catch (error) {
+    console.error('Failed to initialize default data:', error);
+  }
+};
 
 module.exports = app;
