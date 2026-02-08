@@ -130,6 +130,16 @@ class BorrowController {
     }
   }
 
+  // 获取用户预约列表
+  async getReservations(req, res) {
+    try {
+      const reservations = await borrowService.getUserReservations(req.user.id);
+      res.json({ reservations });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
   // 获取所有借阅记录（管理员）
   async getAll(req, res) {
     try {

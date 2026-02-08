@@ -160,6 +160,21 @@ class BookController {
     }
   }
 
+  // 从收藏中移除
+  async removeFromFavorites(req, res) {
+    try {
+      await bookService.removeFromFavorites(req.user.id, req.params.id);
+      
+      await logAction('REMOVE_FAVORITE', 'Favorite', null, {
+        bookId: req.params.id
+      }, req.user.id, req.ip);
+
+      res.json({ message: '已从收藏夹移除' });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
   // 获取统计数据
   async getStatistics(req, res) {
     try {

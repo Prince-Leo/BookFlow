@@ -60,6 +60,7 @@ export const bookApi = {
   getRecommended: () => api.get('/books/recommended/list'),
   addReview: (id, data) => api.post(`/books/${id}/reviews`, data),
   addToFavorites: (id) => api.post(`/books/${id}/favorites`),
+  removeFromFavorites: (id) => api.delete(`/books/${id}/favorites`),
   getFavorites: () => api.get('/books/user/favorites'),
   getStatistics: () => api.get('/books/statistics')
 };
@@ -71,6 +72,7 @@ export const borrowApi = {
   renew: (id, days) => api.post(`/borrows/${id}/renew`, { days }),
   reserve: (data) => api.post('/borrows/reserve', data),
   cancelReservation: (id) => api.delete(`/borrows/reservations/${id}`),
+  getReservations: () => api.get('/borrows/reservations'),
   getHistory: (params) => api.get('/borrows/history', { params }),
   getCurrent: () => api.get('/borrows/current'),
   getAll: (params) => api.get('/borrows/admin/all', { params }),

@@ -15,6 +15,7 @@ router.use(authenticate);
 
 router.get('/recommended/list', bookController.getRecommended);
 router.get('/user/favorites', bookController.getFavorites);
+router.delete('/:id/favorites', bookController.removeFromFavorites);
 router.post('/:id/reviews', bookController.addReview);
 router.post('/:id/favorites', bookController.addToFavorites);
 

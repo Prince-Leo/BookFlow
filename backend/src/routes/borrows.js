@@ -9,6 +9,7 @@ router.use(authenticate);
 router.post('/', borrowController.borrow);
 router.get('/history', borrowController.getHistory);
 router.get('/current', borrowController.getCurrent);
+router.get('/reservations', borrowController.getReservations);
 router.post('/:id/return', borrowController.returnBook);
 router.post('/:id/renew', borrowController.renew);
 router.post('/reserve', borrowController.reserve);

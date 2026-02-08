@@ -5,16 +5,20 @@ import { Link } from 'react-router-dom';
 import { useBookStore } from '../stores/bookStore';
 
 const Favorites = () => {
-  const { favorites, getFavorites, isLoading } = useBookStore();
+  const { favorites, getFavorites, removeFromFavorites, isLoading } = useBookStore();
 
   useEffect(() => {
     getFavorites();
   }, []);
 
-  const handleRemove = async (id) => {
-    // 这里需要添加取消收藏的API
-    message.success('已从收藏夹移除');
-    getFavorites();
+  const handleRemove = async (bookId) => {
+    const result = await removeFromFavorites(bookId);
+    if (result.success) {
+      message.success('已从收藏夹移除');
+      getFavorites(); // 刷新列表
+    } else {
+      message.error(result.error || '移除失败');
+    }
   };
 
   if (isLoading) {

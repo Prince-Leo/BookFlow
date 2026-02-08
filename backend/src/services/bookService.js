@@ -181,6 +181,18 @@ class BookService {
     return favorites;
   }
 
+  // 从收藏中移除
+  async removeFromFavorites(userId, bookId) {
+    const favorite = await Favorite.findOne({
+      where: { userId, bookId }
+    });
+    if (!favorite) {
+      throw new Error('收藏记录不存在');
+    }
+    await favorite.destroy();
+    return true;
+  }
+
   // 获取统计数据
   async getStatistics() {
     const totalBooks = await Book.count();

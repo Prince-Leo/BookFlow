@@ -14,6 +14,7 @@ import BookDetail from './pages/BookDetail';
 import MyBorrows from './pages/MyBorrows';
 import BorrowHistory from './pages/BorrowHistory';
 import Favorites from './pages/Favorites';
+import Reservations from './pages/Reservations';
 import Profile from './pages/Profile';
 
 // 管理员页面
@@ -54,6 +55,7 @@ function App() {
           <Route path="my-borrows" element={<MyBorrows />} />
           <Route path="history" element={<BorrowHistory />} />
           <Route path="favorites" element={<Favorites />} />
+          <Route path="reservations" element={<Reservations />} />
           <Route path="profile" element={<Profile />} />
 
           {/* 管理员路由 */}

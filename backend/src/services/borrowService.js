@@ -221,6 +221,16 @@ class BorrowService {
     return reservation;
   }
 
+  // 获取用户预约列表
+  async getUserReservations(userId) {
+    const reservations = await Reservation.findAll({
+      where: { userId },
+      include: [{ model: Book, attributes: ['id', 'title', 'author', 'coverImage'] }],
+      order: [['createdAt', 'DESC']]
+    });
+    return reservations;
+  }
+
   // 获取用户借阅历史
   async getUserBorrowHistory(userId, page = 1, limit = 10) {
     const { count, rows: records } = await BorrowRecord.findAndCountAll({

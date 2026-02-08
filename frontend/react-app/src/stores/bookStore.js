@@ -165,6 +165,21 @@ export const useBookStore = create((set, get) => ({
     }
   },
 
+  removeFromFavorites: async (id) => {
+    set({ isLoading: true, error: null });
+    try {
+      await bookApi.removeFromFavorites(id);
+      set({ isLoading: false });
+      return { success: true };
+    } catch (error) {
+      set({
+        error: error.message || '移除收藏失败',
+        isLoading: false
+      });
+      return { success: false, error: error.message };
+    }
+  },
+
   getFavorites: async () => {
     set({ isLoading: true, error: null });
     try {

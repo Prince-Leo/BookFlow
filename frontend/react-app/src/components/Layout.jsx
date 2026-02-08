@@ -12,7 +12,8 @@ import {
   MenuUnfoldOutlined,
   DashboardOutlined,
   TeamOutlined,
-  ReadOutlined
+  ReadOutlined,
+  CalendarOutlined
 } from '@ant-design/icons';
 import { useNavigate, useLocation, Link, Outlet } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
@@ -71,6 +72,11 @@ const AppLayout = () => {
         key: '/favorites',
         icon: <HeartOutlined />,
         label: <Link to="/favorites">我的收藏</Link>
+      },
+      {
+        key: '/reservations',
+        icon: <CalendarOutlined />,
+        label: <Link to="/reservations">我的预约</Link>
       }
     ];
 
