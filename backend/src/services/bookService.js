@@ -92,6 +92,14 @@ class BookService {
     const book = await Book.findByPk(id);
     if (!book) return false;
     
+    const { BorrowRecord, Reservation, Review, Favorite } = require('../models');
+    
+    // 先删除关联数据
+    await BorrowRecord.destroy({ where: { bookId: id } });
+    await Reservation.destroy({ where: { bookId: id } });
+    await Review.destroy({ where: { bookId: id } });
+    await Favorite.destroy({ where: { bookId: id } });
+    
     await book.destroy();
     return true;
   }
