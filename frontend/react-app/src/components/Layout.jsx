@@ -14,12 +14,12 @@ import {
   TeamOutlined,
   ReadOutlined
 } from '@ant-design/icons';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link, Outlet } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 
 const { Header, Sider, Content } = Layout;
 
-const AppLayout = ({ children }) => {
+const AppLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -170,15 +170,15 @@ const AppLayout = ({ children }) => {
             </div>
           </Dropdown>
         </Header>
-        <Content style={{ 
-          margin: 24, 
-          padding: 24, 
+        <Content style={{
+          margin: 24,
+          padding: 24,
           background: '#fff',
           borderRadius: 8,
           minHeight: 280,
           overflow: 'auto'
         }}>
-          {children}
+          <Outlet />
         </Content>
       </Layout>
     </Layout>
