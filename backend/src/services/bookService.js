@@ -70,6 +70,10 @@ class BookService {
 
   // 创建图书
   async createBook(data) {
+    // 如果没有设置 availableQuantity，则将其设置为 totalQuantity
+    if (data.totalQuantity !== undefined && data.availableQuantity === undefined) {
+      data.availableQuantity = data.totalQuantity;
+    }
     const book = await Book.create(data);
     return this.getBookById(book.id);
   }
