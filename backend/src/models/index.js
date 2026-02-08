@@ -124,6 +124,13 @@ const Book = sequelize.define('Book', {
   ratingCount: {
     type: DataTypes.INTEGER,
     defaultValue: 0
+  },
+  categoryId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'categories',
+      key: 'id'
+    }
   }
 }, {
   tableName: 'books',

@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://152.32.225.49:3000/api';
+// 根据环境确定 API 基础 URL
+const isDevelopment = import.meta.env.DEV;
+const API_BASE_URL = isDevelopment 
+  ? '/api'  // 开发环境使用代理
+  : (import.meta.env.VITE_API_URL || 'http://152.32.225.49:3000/api');  // 生产环境使用完整 URL
 
 const api = axios.create({
   baseURL: API_BASE_URL,

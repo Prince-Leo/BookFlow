@@ -12,7 +12,8 @@ RUN npm install
 # 复制源代码
 COPY frontend/react-app/ ./
 
-# 构建
+# 设置生产环境变量并构建
+ENV VITE_API_URL=http://152.32.225.49:3000/api
 RUN npm run build
 
 # 生产阶段
