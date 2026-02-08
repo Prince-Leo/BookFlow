@@ -14,7 +14,7 @@ import {
   Col,
   Card
 } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined, LockOutlined, UnlockOutlined } from '@ant-design/icons';
+import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined, LockOutlined, UnlockOutlined, ReloadOutlined } from '@ant-design/icons';
 import { userApi } from '../../services/api';
 
 const { Option } = Select;
